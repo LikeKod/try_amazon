@@ -1,0 +1,2 @@
+[] - Takes the logic of getting a user beyond the scope of the auth service
+[] - 
