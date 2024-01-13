@@ -7,7 +7,7 @@ export class UserDto {
 
     @IsOptional()
     @IsString()
-    password?:string
+    password?: string
 
 
     @IsOptional()

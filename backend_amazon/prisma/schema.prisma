@@ -22,6 +22,8 @@ model User {
 
   orders  Order[]
   reviews Review[]
+
+  favorites Product[]
 }
 
 model Product {
@@ -40,6 +42,8 @@ model Product {
 
   category   Category? @relation(fields: [categoryId], references: [id])
   categoryId Int?      @map("category_id")
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     Int?
 }
 
 model Category {
@@ -48,6 +52,8 @@ model Category {
   updatedAt DateTime @updatedAt @map("update_at")
 
   name     String    @unique
+  slug     String    @unique
+
   products Product[]
 }
 
@@ -91,6 +97,8 @@ model OrderItem {
 
   product   Product? @relation(fields: [productId], references: [id])
   productId Int      @map("product_id")
+
+  @@map("Order_item")
 }
 
 enum EnumOrderStatus {
