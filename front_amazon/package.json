@@ -1,0 +1,32 @@
+{
+  "name": "front_amazon",
+  "description": "Try develop web app with video on youtube",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/node": "20.11.2",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
+    "axios": "^1.6.5",
+    "clsx": "^2.1.0",
+    "js-cookie": "^3.0.5",
+    "next": "14.0.4",
+    "prettier": "^3.2.2",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^5.0.1",
+    "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "tailwindcss": "^3.4.1"
+  }
+}

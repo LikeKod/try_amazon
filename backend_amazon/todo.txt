@@ -1,3 +1,4 @@
 [] - Takes the logic of getting a user beyond the scope of the auth service
 [] - Create admin panel
 [] - connect byId and bySlug
+[] - Add middle rating in product card

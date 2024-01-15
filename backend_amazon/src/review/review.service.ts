@@ -34,7 +34,7 @@ export class ReviewService {
     });
   }
 
-  asunc getAvarageValueByProductId(productId: number) {
+  async getAvarageValueByProductId(productId: number) {
     return this.prisma.review
       .aggregate({
         where: {productId},
