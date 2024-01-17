@@ -1,10 +1,9 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { configureStore } from "@reduxjs/toolkit/dist/configureStore";
-import { createSlice } from "@reduxjs/toolkit/dist/createSlice";
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+// import carouselSlice from './carousel/carousel.slice';
+// import { cartSlice } from './cart/cart.slice';
+import { userSlice } from "./user/user.slice";
 
 
 
@@ -16,19 +15,20 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    cart: createSlice.reducer,
-    carousel: carouselSlice.reducer
+    // cart: cartSlice.reducer,
+    // carousel: carouselSlice.reducer,
+    user: userSlice.reducer
 })
 
-const persistReducer = persistReducer(persistConfig, rootReducer)
+const PersistReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-    reducer: persistReducer,
-    middleware: buildGetDefaultMiddleware => 
-        buildGetDefaultMiddleware({
+    reducer: PersistReducer,
+    middleware: getDefaultMiddleware => 
+        getDefaultMiddleware({
             serializableCheck: {
-                ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER ]
-            }
+                ignoreActions: true
+            },
         })
 })
 

@@ -1,7 +1,6 @@
 import { IUser } from "../../types/user.interface"
 export interface IUserState {
     email: string
-    isAdmin: boolean
 }
 
 export interface ITokens {
@@ -12,6 +11,7 @@ export interface ITokens {
 export interface IInitialState {
     user: IUserState | null
     isLoading: boolean
+    isAdmin: boolean
 }
 
 export interface IEmailPassword {
