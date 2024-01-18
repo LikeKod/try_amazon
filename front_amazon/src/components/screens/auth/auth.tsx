@@ -7,9 +7,12 @@ import { useAuth } from '@/hooks/useAuth'
 import { IEmailPassword } from '@/store/user/user.interface'
 import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAuthRedirect } from './useAuthRedirect'
 import { validEmail } from './valid-email'
 
 const Auth: FC = () => {
+	useAuthRedirect()
+
 	const { isLoading } = useAuth()
 
 	const { login, register } = useActions()
@@ -19,7 +22,7 @@ const Auth: FC = () => {
 	const {
 		register: formRegister,
 		handleSubmit,
-		formState: {errors},
+		formState: { errors },
 		reset,
 	} = useForm<IEmailPassword>({
 		mode: 'onChange',
@@ -33,29 +36,47 @@ const Auth: FC = () => {
 	}
 	return (
 		<Meta title='Auth'>
-			<Heading className='capitalize'>{type}</Heading>
-
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Field {...formRegister('email',{
-					required: 'Email is required',
-					pattern: {
-						value: validEmail,
-						message: 'Please enter a valid email address'
-					}
-				})} placeholder='Email'
-				error={errors.email?.message}/>
-				<Field {...formRegister('password',{
-					required: 'Password is required',
-					minLength: {
-						value: 6,
-						message: 'Min length should more 6 symbols'
-					}
-				})} 
-				type='password'
-				placeholder='password'
-				error={errors.password?.message}/>
-				<Button variant='dark'>Auth</Button>
-			</form>
+			<section className='flex h-screen'>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className='rounded-lg bg-white shadow-sm p-8 m-auto'
+				>
+					<Heading className='capitalize text-center mb-4'>{type}</Heading>
+					<Field
+						{...formRegister('email', {
+							required: 'Email is required',
+							pattern: {
+								value: validEmail,
+								message: 'Please enter a valid email address',
+							},
+						})}
+						placeholder='Email'
+						error={errors.email?.message}
+					/>
+					<Field
+						{...formRegister('password', {
+							required: 'Password is required',
+							minLength: {
+								value: 6,
+								message: 'Min length should more 6 symbols',
+							},
+						})}
+						type='password'
+						placeholder='password'
+						error={errors.password?.message}
+					/>
+					<div>
+						<Button type='submit' variant='dark'>Auth</Button>
+						<button
+						type='button'
+							className='inline-block opacity-20 text-sm mt-3'
+							onClick={() => setType(type === 'login' ? 'register' : 'login')}
+						>
+							{type === 'login' ? 'register' : 'login'}
+						</button>
+					</div>
+				</form>
+			</section>
 		</Meta>
 	)
 }
