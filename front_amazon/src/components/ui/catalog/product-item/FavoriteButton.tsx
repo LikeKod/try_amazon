@@ -1,26 +1,37 @@
+import { UserService } from "@/assets/styles/services/user.service";
 import { useProfile } from "@/hooks/useProfile";
 import { FC } from "react";
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { useMutation, useQueryClient } from "react-query";
+
 
 
 
 const FavoriteButton: FC<{productId: number}> = ({productId}) => {
+
+
     const {profile} = useProfile()
 
-    const isExist = profile.(
-        (        cartItem: { product: { id: any; }; }) => cartItem.product.id === product.id
+    if(!profile) return null
+
+    const {invalidateQueries} = useQueryClient()
+
+    const {mutate} = useMutation(['toggle favorite'], () => UserService.toggleFavorite(productId), {
+        onSuccess() {
+            invalidateQueries(['get profile'])
+        }
+    })
+
+    const isExist = profile.favorites.some(
+        favorite => favorite.id === productId
     )
 
     return (
         <div>
             <button
-                onClick={() => currentElement ? removeFromCart({id: currentElement.id}) : addToCart({
-                    product,
-                    quantity: 1,
-                    price: product.price
-                })}
+                onClick={() => mutate()}
                 >
-                    {currentElement ? <AiFillHeart /> : <AiOutlineHeart />}
+                    {isExist ? <AiFillHeart /> : <AiOutlineHeart />}
             </button>
         </div>
     )

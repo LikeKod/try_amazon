@@ -2,7 +2,7 @@ import { useActions } from "@/hooks/useActions";
 import { useCart } from "@/hooks/useCart";
 import { IProduct } from "@/types/product.interface";
 import { FC } from "react";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { BsCart2, BsCartFill } from "react-icons/bs";
 
 
 
@@ -23,7 +23,7 @@ const AddToCartButton: FC<{product: IProduct}> = ({product}) => {
                     price: product.price
                 })}
                 >
-                    {currentElement ? <AiFillHeart /> : <AiOutlineHeart />}
+                    {currentElement ? <BsCart2  /> : <BsCartFill />}
             </button>
         </div>
     )

@@ -1,6 +1,6 @@
 import '@/assets/styles/globals.scss'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { AppProps } from 'next/app'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient({
 	defaultOptions: {

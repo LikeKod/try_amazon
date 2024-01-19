@@ -11,8 +11,18 @@ export interface IProduct {
     images: string[]
     createdAt: string
     category: ICategory
+    isLoading: boolean
 }
 
 export interface IProductDetails {
     product: IProduct
+}
+
+export type TypeProduct ={
+    products: IProduct[]
+}
+
+export type TypePaginationProduct ={
+    length: number
+    products: IProduct[]
 }
