@@ -22,6 +22,12 @@ export class UserService {
                     price: true,
                     images: true,
                     slug: true,
+                    category: {
+                        select: {
+                            slug: true
+                        }
+                    },
+                    reviews: true
                 }
             },
 

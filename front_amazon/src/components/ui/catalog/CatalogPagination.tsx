@@ -23,17 +23,20 @@ const CatalogPagination: FC<ICatalogPagination> = ({
     const [sortType, setSortType] = useState<EnumProductSort>(EnumProductSort.NEWEST)
 
     const {data: response, isLoading} = useQuery(
-        ['products', sortType],
+        ['products', sortType, page],
         () => ProductService.getAll({
             page,
             perPage: 4,
             sort: sortType
         }),
         {
-            initialData: data
+            initialData: data,
+			keepPreviousData: true
         }
     )
 	if (isLoading) return <Loader />
+
+	console.log(response?.length)
 
 	return (
 		<section>
@@ -47,7 +50,19 @@ const CatalogPagination: FC<ICatalogPagination> = ({
 						))}
 					</div>
 					<div className='text-center mt-12'>
-						<Button size='sm' onClick={() => setPage(page+1)} variant='dark'>Load more</Button>
+						{Array.from({length: response.length % 4}).map
+						((_, index) => {
+							const pageNumber = index + 1
+							return( 
+								<Button
+									key={pageNumber}
+									size='sm'
+									variant={page === pageNumber ? 'dark' : 'light'}
+									onClick = {() => setPage(pageNumber)}
+									className='mx-3'
+								>{pageNumber}</Button>
+							)
+						})}
 					</div>
 				</>
 			) : (
