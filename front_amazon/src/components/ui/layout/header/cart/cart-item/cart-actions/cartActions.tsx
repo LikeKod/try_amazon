@@ -35,7 +35,7 @@ const CartActions: FC<{ item: ICartItem }> = ({ item }) => {
 				
                 <button
 					onClick={() => removeFromCart({ id: item.id })}
-                    className='ml-3 text-secondary'
+                    className='ml-3 text-white'
                 >
 					<FiTrash/>
 				</button>

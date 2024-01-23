@@ -50,7 +50,7 @@ const CatalogPagination: FC<ICatalogPagination> = ({
 						))}
 					</div>
 					<div className='text-center mt-12'>
-						{Array.from({length: response.length % 4}).map
+						{Array.from({length: response.length / 4}).map
 						((_, index) => {
 							const pageNumber = index + 1
 							return( 

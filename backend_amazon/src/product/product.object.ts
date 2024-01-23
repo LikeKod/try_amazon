@@ -12,7 +12,10 @@ export const productObject: Prisma.ProductSelect = {
     slug: true,
     category: {select: returnCategoryObject},
     reviews: {
-        select: returnReviewObject
+        select: returnReviewObject,
+        orderBy: {
+            createdAt: 'desc'
+        }
     }
 }
 
