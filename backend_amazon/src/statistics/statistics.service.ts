@@ -42,7 +42,7 @@ export class StatisticsService {
             },
             {
                 name: 'Total amount',
-                value: totalAmount._sum.total
+                value: totalAmount._sum.total || 0
             },
         ]
     }

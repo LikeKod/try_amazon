@@ -1,36 +1,49 @@
+'use client'
+
+import NotFound from '@/app/not-found'
 import { getAccessToken } from '@/assets/styles/services/auth/auth.helper'
+import { ADMIN_PANEL_URL } from '@/config/url.config'
+import { REFRESH_TOKEN } from '@/constants/token.constants'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import Cookies from 'js-cookie'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import { FC, PropsWithChildren, useEffect } from 'react'
-import { TypeComponentAuthFields } from './auth-page.types'
+import { protectedRoutes } from './protected-routes.data'
 
-const DynamicCheckRole = dynamic(() => import('./CheckRole'), {ssr: false})
+const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
+	const { user } = useAuth()
+	const { checkAuth, logout } = useActions()
 
-const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = 
-({Component: {
-    isOnlyUser
-}, children 
-}) => {
+	const pathname = usePathname()
 
-    const {user} = useAuth()
-    const {checkAuth, logout} = useActions()
+	useEffect(() => {
+		const accessToken = getAccessToken()
+		if (accessToken) checkAuth()
+	}, [])
 
-    const {pathname} = useRouter()
+	useEffect(() => {
+		const refreshToken = Cookies.get(REFRESH_TOKEN)
+		if (!refreshToken && user) logout()
+	}, [pathname])
 
-    useEffect(() => {
-        const accessToken = getAccessToken()
-        if(accessToken) checkAuth()
-    }, [])
+    const router = useRouter()
 
-    useEffect(() => {
-        const refreshToken = Cookies.get('refreshToken')
-        if(!refreshToken && user) logout()
-    }, [pathname])
+    const isProtectedRoute = protectedRoutes.some(route => pathname?.startsWith(route))
 
-	return isOnlyUser ? <DynamicCheckRole Component={{isOnlyUser}}>{children}</DynamicCheckRole> : <>{children}</>
+    const isAdminRoute = pathname?.startsWith(ADMIN_PANEL_URL)
+
+    if(!isProtectedRoute && !isAdminRoute) return <>{children}</>
+
+    if(user?.isAdmin) return <>{children}</>
+
+    if(user && isProtectedRoute) return <>{children}</>
+
+    if(user && isAdminRoute) return <NotFound />
+
+    pathname !== '/auth' && router.replace('/auth')
+
+    return null
 }
 
 export default AuthProvider
