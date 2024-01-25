@@ -1,22 +1,19 @@
 import { IProduct } from '@/types/product.interface'
 import { convertPrice } from '@/utils/convertPrice'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 import AddToCartButton from './AddToCartButton'
+import FavoriteButton from './FavoriteButton'
 import { ProductRating } from './ProductRating'
 
-const DynamicFavoriteButton = dynamic(() => import('./FavoriteButton'), {
-	ssr: false,
-})
 
 const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 	return (
 		<div className=''>
 			<div className='bg-white rounded-xl relative overflow-hidden'>
-				<div className='absolute top-2 right-3 z-10'>
-					<DynamicFavoriteButton productId={product.id} />
+				<div className='absolute top-2 right-3 z-1'>
+					<FavoriteButton productId={product.id} />
 					<AddToCartButton product={product} />
 				</div>
 				<Link href={`/product/${product.slug}`}>
@@ -25,6 +22,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 						height={250}
 						src={product.images[0]}
 						alt={product.name}
+						className='block mx-auto'
 					/>
 				</Link>
 				<Link href={`/product/${product.slug}`}>
@@ -36,7 +34,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 				>
 					{product.category.name}
 				</Link>
-				<ProductRating product={product} />
+				<ProductRating product={product} isText />
 				<div className='text-xl font-semibold'>{convertPrice(product.price)}</div>
 			</div>
 		</div>

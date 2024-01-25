@@ -22,6 +22,12 @@ export const content = [
 ]
 export const theme = {
   colors,
-  extend: {},
+  extend: {
+    zIndex: {
+      1: 1,
+      2: 2,
+      3: 3,
+    }
+  },
 }
 export const plugins = []

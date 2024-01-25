@@ -1,11 +1,11 @@
 'use client'
 
 import NotFound from '@/app/not-found'
-import { getAccessToken } from '@/assets/styles/services/auth/auth.helper'
 import { ADMIN_PANEL_URL } from '@/config/url.config'
 import { REFRESH_TOKEN } from '@/constants/token.constants'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
+import { getAccessToken } from '@/types/auth/auth.helper'
 import Cookies from 'js-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import { FC, PropsWithChildren, useEffect } from 'react'

@@ -1,15 +1,12 @@
-import { OrderService } from '@/assets/styles/services/order.service'
-import Button from '@/components/ui/button/Button'
+'use client'
+
 import SquareButton from '@/components/ui/button/SquareButton'
-import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { useOutside } from '@/hooks/useOutside'
 import { convertPrice } from '@/utils/convertPrice'
-import cn from 'clsx'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { FC } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
-import { useMutation } from 'react-query'
 import CartItem from './cart-actions/CartItem'
 import styles from './Cart.module.scss'
 
@@ -18,26 +15,27 @@ const HeaderCart: FC = () => {
 
 	const { items, total } = useCart()
 
-    const {reset} = useActions()
+	// const { reset } = useActions()
 
-	const { push } = useRouter()
+	// const { push } = useRouter()
 
-	const { mutate } = useMutation(
-		['create order and payment'],
-		() =>
-			OrderService.place({
-				items: items.map(item => ({
-					price: item.price,
-					quantity: item.quantity,
-					productId: item.product.id,
-				})),
-			}),
-		{
-			onSuccess({data}) {
-				push(data.confirmation.confirmation_url).then(() => reset())
-			},
-		},
-	)
+	// const { mutate } = useMutation(
+	// 	['create order and payment'],
+	// 	() =>
+	// 		OrderService.place({
+	// 			items: items.map(item => ({
+	// 				price: item.price,
+	// 				quantity: item.quantity,
+	// 				productId: item.product.id,
+	// 			})),
+	// 		}),
+	// 	{
+	// 		onSuccess({ data }) {
+	// 			reset()
+	// 			push(data.confirmation.confirmation_url)
+	// 		},
+	// 	},
+	// )
 
 	return (
 		<div className='relative' ref={ref}>
@@ -48,32 +46,32 @@ const HeaderCart: FC = () => {
 				}}
 				number={items.length}
 			/>
-			<div
-				className={cn(
-					'absolute top-[4.2rem] w-80 -left-[12.5rem] bg-secondary rounded-xl px-5 py-3 text-sm menu z-20 text-white',
-					isShow ? 'open-menu' : 'close-menu',
-				)}
-			>
-				<div className='font-normal text-lg mb-5'>My Cart</div>
 
-				<div className={styles.cart}>
-					{items.length ? (
-						items.map(item => <CartItem item={item} key={item.id} />)
-					) : (
-						<div className='font-light'>Cart is empty! </div>
+			{isShow && (
+				<div className={styles.cartWrapper}>
+					<div className='font-normal text-lg mb-5'>My Cart</div>
+
+					<div className={styles.cart}>
+						{items.length ? (
+							items.map(item => <CartItem item={item} key={item.id} />)
+						) : (
+							<div className='font-light'>Cart is empty! </div>
+						)}
+					</div>
+
+					<div className={styles.footer}>
+						<div>Total:</div>
+						<div>{convertPrice(total)}</div>
+					</div>
+					{!!items.length && (
+						<div className='text-center mt-7 mb-5'>
+							<Link className='btn btn-white' href='/checkout'>
+								Go to checkout
+							</Link>
+						</div>
 					)}
 				</div>
-
-				<div className={styles.footer}>
-					<div>Total:</div>
-					<div>{convertPrice(total)}</div>
-				</div>
-				<div className='text-center'>
-					<Button variant='light' size='sm' className='btn-link mt-5 mb-2' onClick={() => mutate}>
-						Place order
-					</Button>
-				</div>
-			</div>
+			)}
 		</div>
 	)
 }

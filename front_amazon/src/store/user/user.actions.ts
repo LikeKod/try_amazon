@@ -1,6 +1,6 @@
 import { errorCatch } from "@/assets/styles/api/api.helper";
-import { removeFromStorage } from "@/assets/styles/services/auth/auth.helper";
-import { AuthService } from "@/assets/styles/services/auth/auth.service";
+import { removeFromStorage } from "@/types/auth/auth.helper";
+import { AuthService } from "@/types/auth/auth.service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IAuthResponse, IEmailPassword } from "./user.interface";
 

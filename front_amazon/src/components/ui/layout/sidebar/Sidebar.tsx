@@ -1,9 +1,11 @@
+'use client'
+
 import { CategoryService } from '@/assets/styles/services/category.service'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 import cn from 'clsx'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { FC } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { useQuery } from 'react-query'
@@ -18,7 +20,7 @@ const Sidebar: FC = () => {
 		},
 	)
 
-	const { asPath } = useRouter()
+	const pathname  = usePathname()
 	const { user } = useAuth()
 	const { logout } = useActions()
 
@@ -43,7 +45,7 @@ const Sidebar: FC = () => {
 									<Link
 										className={cn(
 											'block  text-lg my-3 px-10 hover:text-primary transition-colors duration-200',
-											asPath === `/catefory/${category.slug}`
+											pathname === `/catefory/${category.slug}`
 												? 'text-primary'
 												: 'text-white',
 										)}
