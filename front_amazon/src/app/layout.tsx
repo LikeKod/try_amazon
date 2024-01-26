@@ -2,6 +2,8 @@ import '@/assets/styles/globals.scss'
 import Providers from '@/providers/Providers'
 import { PropsWithChildren } from 'react'
 
+import { Golos_Text } from 'next/font/google'
+
 import Header from '@/components/ui/layout/header/Header'
 import Sidebar from '@/components/ui/layout/sidebar/Sidebar'
 import { getSiteUrl } from '@/config/url.config'
@@ -25,20 +27,32 @@ export const metadata: Metadata = {
 	},
 }
 
+const golos = Golos_Text({
+	weight: '400',
+	subsets: ['latin', 'cyrillic-ext'],
+	display: 'swap',
+	style: ['normal'],
+	variable: '--font-golos'
+})
+
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 	return (
-		<html lang='en'>
+		<html lang='en' className={golos.variable}>
 			<body>
 				<Providers>
-					<Header />
-					<div
-						className='grid'
-						style={{
-							gridTemplateColumns: '1fr 4fr',
-						}}
-					>
-						<Sidebar />
-						<main className='p-12'>{children}</main>
+					<div className='bg-secondary'>
+						<Header />
+						<div
+							className='grid'
+							style={{
+								gridTemplateColumns: '.8fr 4fr',
+							}}
+						>
+							<Sidebar />
+							<main className='p-12 pb-52 bg-bg-color rounded-tl-lg'>
+								{children}
+							</main>
+						</div>
 					</div>
 				</Providers>
 				<div id='modal'></div>
