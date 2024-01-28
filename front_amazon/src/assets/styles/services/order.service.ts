@@ -29,6 +29,12 @@ export const OrderService = {
         })
     },
 
+    async getByUserId() {
+        return instance<IOrder[]>({
+            url: `${ORDERS}/by-user`
+        })
+    },
+
     async place(data: TypeData) {
         return instance<{confirmation: {confirmation_url: string}}> ({
             url: ORDERS,

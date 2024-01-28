@@ -21,10 +21,12 @@ export const ProductService = {
     },
 
     async getBySlug(slug: string) {
-        return axiosClassic<IProduct>({
+        const {data} = await axiosClassic<IProduct>({
             url: `${PRODUCTS}/by-slug/${slug}`,
-            method: 'GET',
+            method: 'GET'
         })
+
+        return data
     },
 
     async getByCategoryId(categorySlug: string) {

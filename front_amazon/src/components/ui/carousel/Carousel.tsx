@@ -1,3 +1,5 @@
+'use client'
+
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 import cn from 'clsx'
 import Link from 'next/link'
@@ -9,7 +11,7 @@ import styles from './Carousel.module.scss'
 import CarouselNavigation from './CarouselNavigation'
 
 interface ICarousel {
-	items: ICarouselItem
+	items: ICarouselItem[]
 	className?: string
 }
 
@@ -23,12 +25,13 @@ const Carousel: FC<ICarousel> = ({ items, className = '' }) => {
 			<CarouselNavigation />
 			<TransitionGroup className='relative h-56'>
 				<CSSTransition
+					key={selectedItem.title}
 					timeout={500}
 					classNames={{
 						enter: styles['item-enter'],
 						enterActive: styles['item-enter-active'],
 						exit: styles['item-exit'],
-						exitActive: styles['items-exit-active'],
+						exitActive: styles['item-exit-active'],
 					}}
 					unmountOnExit
 					mountOnEnter

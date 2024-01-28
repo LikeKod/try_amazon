@@ -12,7 +12,7 @@ type TypeData = {
 
 export const ReviewsService = {
     async getAll() {
-        return axiosClassic<IReview[]>({
+        return instance<IReview[]>({
             url: REVIEWS,
             method: 'GET'
         })

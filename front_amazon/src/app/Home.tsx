@@ -4,6 +4,7 @@ import Carousel from '@/components/ui/carousel/Carousel'
 import Catalog from '@/components/ui/catalog/Catalog'
 import { TypePaginationProduct } from '@/types/product.interface'
 import { FC } from 'react'
+import { carouselItems } from './carousel.data'
 
 const Home: FC<TypePaginationProduct> = ({ products }) => {
 	return (
