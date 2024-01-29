@@ -1,29 +1,19 @@
 import { EnumProductSort } from '@/assets/styles/services/product/product.type'
-import { Dispatch, FC, SetStateAction } from 'react'
+import Select from '@/components/ui/select/Select'
+import { FC } from 'react'
+import { useFilters } from '../useFilters'
+import { SORT_SELECT_DATA } from './sort-select.data'
 
-interface ISortDropdown {
-	sortType: EnumProductSort
-	setSortType: Dispatch<SetStateAction<EnumProductSort>>
-}
+const SortDropdown: FC = () => {
+	const {queryParams, updateQueryParams} = useFilters()
 
-const SortDropdown: FC<ISortDropdown> = ({ setSortType, sortType }) => {
 	return (
-		<div className='text-right mb-5'>
-			<select
-				onChange={e => setSortType(e.target.value as any)}
-				value={sortType}
-				className='appearance-none py-1 px-2 bg-white'
-			>
-				{(
-					Object.keys(EnumProductSort) as Array<keyof typeof EnumProductSort>
-				).map(key => {
-					return (
-						<option key={key} value={EnumProductSort[key]}>
-							{EnumProductSort[key]}
-						</option>
-					)
-				})}
-			</select>
+		<div className='text-right z-10'>
+			<Select<EnumProductSort>
+				data={SORT_SELECT_DATA}
+				onChange={value => updateQueryParams('sort', value.key.toString())}
+				value={SORT_SELECT_DATA.find(value => value.key === queryParams.sort)}
+				title='Sort by' />
 		</div>
 	)
 }

@@ -10,6 +10,7 @@ import { FC, useState } from 'react'
 import { useQuery } from 'react-query'
 import Pagination from './pagination/Pagination'
 import styles from './ProductExplorer.module.scss'
+import SortDropdown from './sort/SortDropdown'
 import { useFilters } from './useFilters'
 
 interface IProductExplorer {
@@ -38,7 +39,7 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 						? `Search by query "${queryParams.searchTerm}"`
 						: 'Explorer'}
 				</Heading>
-				{/* <SortDropdown /> */}
+				<SortDropdown />
 			</div>
             <Button  variant='light' onClick={() => setIsFilterOpen(!isFilterOpen)} className='mb-7'>
                         {isFilterOpen ? 'Close' : 'Open'}
