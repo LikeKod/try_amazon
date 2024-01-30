@@ -9,7 +9,7 @@ interface IMyOrders {}
 export default function MyOrders({}: IMyOrders) {
 	const { data: orders } = useQuery(
 		['my orders'],
-		() => OrderService.getAll(),
+		() => OrderService.getByUserId(),
 		{ select: ({ data }) => data },
 	)
 
@@ -28,7 +28,7 @@ export default function MyOrders({}: IMyOrders) {
 						</div>
 					))
 				) : (
-					<div>Order not found</div>
+					<div>Orders not found</div>
 				)}
 			</section>
 		</>

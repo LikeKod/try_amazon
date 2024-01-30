@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import styles from './Checkbox.module.scss'
 
 interface ICheckbox {
-	isChecked: boolean
+	isChecked?: boolean
 	onClick: () => void
 	className?: string
 }

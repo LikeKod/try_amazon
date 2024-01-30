@@ -8,6 +8,7 @@ import { TypePaginationProduct } from '@/types/product.interface'
 import cn from 'clsx'
 import { FC, useState } from 'react'
 import { useQuery } from 'react-query'
+import Filters from './filters/Filters'
 import Pagination from './pagination/Pagination'
 import styles from './ProductExplorer.module.scss'
 import SortDropdown from './sort/SortDropdown'
@@ -47,7 +48,7 @@ const ProductExplorer: FC<IProductExplorer> = ({ initialProducts }) => {
 
             <div className={cn(styles.explorer, {[styles.filterOpened]: isFilterOpen})}>
                 <aside>
-                    {/* Filters */}
+                    <Filters />
                 </aside>
 
                 <section>

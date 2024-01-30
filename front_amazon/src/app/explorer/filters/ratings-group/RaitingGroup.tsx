@@ -1,5 +1,6 @@
 import Checkbox from '@/components/ui/checkbox/Checkbox'
 import { FC } from 'react'
+import { Rating } from 'react-simple-star-rating'
 import { useFilters } from '../../useFilters'
 import FilterWrapper from '../FilterWrapper'
 import { RATING_VARIANTS } from './rating-variant.data'
@@ -16,13 +17,27 @@ const RaitingGroup: FC = () => {
 					onClick={() =>
 						updateQueryParams(
 							'ratings',
-							updateRaitingsQuery(queryParams.ratings, rating.toString()),
+							updateRaitingsQuery(
+								queryParams.ratings as string,
+								rating.toString(),
+							),
 						)
 					}
 					key={rating}
 					className='mb-2 text-sm'
-				></Checkbox>
+				>
+					<Rating
+						readonly
+						initialValue={rating}
+						SVGstyle={{ display: 'inline-block' }}
+						size={20}
+						transition
+					/>
+				</Checkbox>
 			))}
 		</FilterWrapper>
 	)
 }
+
+
+export default RaitingGroup

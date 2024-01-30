@@ -5,7 +5,7 @@ import { IMenuItem } from "./menu.interface";
 export const ADMIN_MENU: IMenuItem[] = [
     {
         label: 'Dashboard',
-        href: getAdminUrl('/')
+        href: getAdminUrl()
     },
     {
         label: 'Products',
