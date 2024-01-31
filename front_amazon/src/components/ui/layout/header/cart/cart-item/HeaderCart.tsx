@@ -15,28 +15,6 @@ const HeaderCart: FC = () => {
 
 	const { items, total } = useCart()
 
-	// const { reset } = useActions()
-
-	// const { push } = useRouter()
-
-	// const { mutate } = useMutation(
-	// 	['create order and payment'],
-	// 	() =>
-	// 		OrderService.place({
-	// 			items: items.map(item => ({
-	// 				price: item.price,
-	// 				quantity: item.quantity,
-	// 				productId: item.product.id,
-	// 			})),
-	// 		}),
-	// 	{
-	// 		onSuccess({ data }) {
-	// 			reset()
-	// 			push(data.confirmation.confirmation_url)
-	// 		},
-	// 	},
-	// )
-
 	return (
 		<div className='relative' ref={ref}>
 			<SquareButton
@@ -65,7 +43,7 @@ const HeaderCart: FC = () => {
 					</div>
 					{!!items.length && (
 						<div className='text-center mt-7 mb-5'>
-							<Link className='btn btn-white' href='/checkout'>
+							<Link className='btn btn-white' href='/checkout' onClick={() => setIsShow(false)}>
 								Go to checkout
 							</Link>
 						</div>
